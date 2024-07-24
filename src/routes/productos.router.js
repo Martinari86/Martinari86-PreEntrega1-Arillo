@@ -4,7 +4,7 @@ import {productManager} from "../app.js";
 const productsRouter = Router();
 
 //Lista de todos los productos en la ruta /products
-productsRouter.get("/api/products", async (req, res) => {
+productsRouter.get("/", async (req, res) => {
     try{
         const limit = req.query.limit; //{limit} = req.query
         const productos = await productManager.getProducts();
@@ -22,7 +22,7 @@ productsRouter.get("/api/products", async (req, res) => {
 )
 
 //Traer producto por ID
-productsRouter.get("/api/products/:pid", async (req, res) =>{
+productsRouter.get("/:pid", async (req, res) =>{
     let pid = req.params.pid;
     try{
         const response = await productManager.getProductById(pid);
@@ -39,10 +39,10 @@ productsRouter.get("/api/products/:pid", async (req, res) =>{
 })
 
 //Metodo Post para transferir informacion
-productsRouter.post("/api/products", async (req, res) => {
+productsRouter.post("/", async (req, res) => {
     try{
         const {title, description, price, thumbnail, code, stock, status=true, category} = req.body;
-        const response = await productManager.addProduct([title, description, price, thumbnail, code, stock, status, category])
+        const response = await productManager.updateProduct([title, description, price, thumbnail, code, stock, status, category])
         res.json(response)
     }catch (error){
         res.send("Error al crear producto")
@@ -52,7 +52,7 @@ productsRouter.post("/api/products", async (req, res) => {
 )
 
 //Metodo para Actualizar un producto en la lista
-productsRouter.put('/api/products/:pid', async (req, res) => {
+productsRouter.put('/:pid', async (req, res) => {
     const pid = req.params.pid;
     try{
         const {title, description, price, thumbnail, code, stock, status=true, category} = req.body;
@@ -67,7 +67,7 @@ productsRouter.put('/api/products/:pid', async (req, res) => {
   });
 
 //Metodo Delete para eliminar productos
-productsRouter.delete('/api/products/:pid', async (req, res) => {
+productsRouter.delete('/:pid', async (req, res) => {
     let pid = req.params.pid;
     try{
         await productManager.deleteProduct(pid);

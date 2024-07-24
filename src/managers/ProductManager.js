@@ -32,10 +32,10 @@ class ProductManager {
 
     getProductById = async(id)=>{
         const response = await this.getProducts();
-        const product = response.find(product => product.id === id)
+        const productFound = response.find(product => product.id === id)
 
-        if(product){
-            return product
+        if(productFound){
+            return productFound
         }else{
             console.log("Producto No Encontrado");
         }

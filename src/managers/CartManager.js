@@ -1,4 +1,4 @@
-import { log } from "console";
+import {log} from "console";
 import {promises as fs} from 'fs';
 import {v4 as uuidv4} from 'uuid';
 
@@ -18,7 +18,8 @@ class CartManager {
         let newCart ={id, products: []};
         this.carts=await this.getCarts();
         this.carts.push(newCart);
-        await fs.writeFile(this.path, JSON.stringify(this.carts))
+        //await fs.writeFile(this.path, JSON.stringify(this.carts))
+        this.saveCarts();
         return newCart;
 
     }
@@ -27,15 +28,15 @@ class CartManager {
 
     //Retonarnar Carrito por ID
 
-    async getCartById (cId){
+    getCartById = async (cid) => {
         try{
             this.carts=await this.getCarts();
-            const carrito = this.carts.find (cart => cart.id === cId);
-            if(!carrito){
+            const cartFound = this.carts.find (element => element.id === cid);
+            if(!cartFound){
                 //throw new Error ("Producto no contrado");
                 console.log("Producto No Encontrado");
             }else{
-                return carrito
+                return cartFound
             }
         }catch(error){
             console.log("Error al cargar los carritos", error);    
@@ -44,15 +45,15 @@ class CartManager {
     
     //Agregar productos al carrito
 
-    async addProductsToCart(cid,pid,quantity=1){
+   addProductsToCart = async(cid,pid,quantity=1) => {
         
         const cart = await this.getCartById(cid);
-        const existProduct = cart.products.find(element => element.products === pid)
+        const existProduct = cart.products.find(element => element.product === pid)
 
         if(existProduct){
             existProduct.quantity += quantity
         } else{
-            carrito.products.push({product: pid, quantity})
+            cart.products.push({product: pid, quantity})
         }
 
         await this.saveCarts();

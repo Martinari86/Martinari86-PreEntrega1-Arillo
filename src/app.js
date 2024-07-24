@@ -12,8 +12,8 @@ const PUERTO = 8080;
 app.use(express.json());
 
 //Rutas
-app.use("/", productsRouter);
-app.use("/", cartRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartRouter);
 
 
 //Listen del servidor
