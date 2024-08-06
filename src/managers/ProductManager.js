@@ -12,7 +12,7 @@ class ProductManager {
         this.path = path; //productos.json        
     }
 
-    addProduct = async ([title, description, price, thumbnail, code , stock ,status, category]) => {
+    addProduct = async ({title, description, price, thumbnail, code , stock ,status, category}) => {
         const id = uuidv4()
         let newProduct= {id, title, description, price, thumbnail, code , stock ,status, category}
         

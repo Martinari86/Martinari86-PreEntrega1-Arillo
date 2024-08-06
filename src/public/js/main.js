@@ -43,9 +43,7 @@ const formulario = document.getElementById("formulario")
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
 
-        const title = document.getElementById('title').value;
-        console.log(title);
-        
+        const title = document.getElementById('title').value;        
         const description = document.getElementById('description').value;
         const code = document.getElementById('code').value;
         const price = document.getElementById('price').value;
@@ -60,6 +58,11 @@ formulario.addEventListener('submit', (e) => {
                 stock});
             console.log("enviado al socket")
         }
-
+        
+        document.getElementById('title').value = '';
+        document.getElementById('description').value = '';
+        document.getElementById('code').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('stock').value = '';  
 });
 

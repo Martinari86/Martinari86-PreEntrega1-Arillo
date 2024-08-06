@@ -66,8 +66,8 @@ io.on("connection", async (socket) =>{
 
   socket.on("productForm" , async (data) => {
     //Gusrdamos productos creados
-    const {title, description, price, thumbnail, code, stock, category} = data;
-    await productManager.addProduct(title);
+    const { title, description, price, thumbnail, code, stock, category } = data;
+    await productManager.addProduct({ title, description, price, thumbnail, code, stock, category });
     socket.emit("products", await productManager.getProducts());
     console.log("Productos actualizados");
   });
