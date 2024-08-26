@@ -7,9 +7,9 @@ import {v4 as uuidv4} from 'uuid';
 
 class ProductManager {
     
-    constructor(path){
+    constructor(){
         this.products =[];
-        this.path = path; //productos.json        
+        this.path = "./src/dao/fs/productos.json"; //productos.json        
     }
 
     addProduct = async ({title, description, price, thumbnail, code , stock ,status, category}) => {

@@ -1,12 +1,29 @@
 import {Router} from "express";
-import {productManager} from "../app.js";
+import ProductModel from "../dao/models/product.model.js";
 
 const viewsRouter = Router();
 
 //Lista de todos los productos en la ruta /products
 viewsRouter.get("/products", async (req, res) => {
-        const productos = await productManager.getProducts();
-        res.render("home", {productos});
+        
+        let page = req.query.page || 1;
+        let limit = 3;
+        
+        const productosLista = await ProductModel.paginate({}, {limit, page});
+        const productosListaFinal = productosLista.docs.map(elemento =>{
+            const {_id, ...rest} = elemento.toObject();
+            return rest
+        })
+            
+        res.render("home",{
+            productos: productosListaFinal,
+            hasPrevPage: productosLista.hasPrevPage,
+            hasNextPage: productosLista.hasNextPage,
+            prevPage: productosLista.prevPage,
+            nextPage: productosLista.nextPage,
+            currentPage: productosLista.page,
+            totalPages:productosLista.totalPages
+        })
     }
 )
 

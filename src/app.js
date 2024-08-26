@@ -2,8 +2,8 @@
 import express from "express"; //OTRA FORMA DE IMPORTAR EXPRESS
 import {engine} from "express-handlebars";
 
-import {ProductManager} from "./managers/productManager.js";
-import {CartManager} from "./managers/CartManager.js";
+import {ProductManager} from "./dao/db/product-manager-db.js";
+import {CartManager} from "./dao/db/cart-manager-db.js";
 
 
 import {productsRouter} from "./routes/productos.router.js";
@@ -12,14 +12,16 @@ import {viewsRouter} from "./routes/views.router.js";
 
 import {Server} from "socket.io"
 
+import "./database.js" 
+
 
 
 const app = express();
 const PUERTO = 8080;
 
 //Instancio mis manager para usar sus metodos
-const productManager = new ProductManager ('./src/data/productos.json');
-const cartManager = new CartManager ('./src/data/carts.json');
+const productManager = new ProductManager ();
+const cartManager = new CartManager ();
 
 //Middleware
 app.use(express.json());

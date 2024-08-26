@@ -47,4 +47,18 @@ cartRouter.post("/:cid/product/:pid", async (req,res) => {
 
 })
 
+cartRouter.delete("/:cid/product/:pid", async (req,res) => {
+    let cid=req.params.cid;
+    let pid=req.params.pid;
+    
+    try{
+        const actualizado = await cartManager.deleteProductFromCart(cid,pid)
+        res.json(actualizado.products)
+    }catch(error){
+        res.send("Error al actualizar")
+        console.log(error);
+    }
+
+})
+
 export {cartRouter};
