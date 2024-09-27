@@ -5,14 +5,19 @@ import {engine} from "express-handlebars";
 import {ProductManager} from "./dao/db/product-manager-db.js";
 import {CartManager} from "./dao/db/cart-manager-db.js";
 
-
 import {productsRouter} from "./routes/productos.router.js";
 import {cartRouter} from "./routes/cart.router.js";
 import {viewsRouter} from "./routes/views.router.js";
 
-import {Server} from "socket.io"
+import {Server} from "socket.io";
 
-import "./database.js" 
+import "./database.js"; 
+
+import cookieParser from "cookie-parser";
+import passport from "passport";
+import initializePassport from "./config/passport.config.js";
+import { viewUserRouter } from "./routes/viewsuser.router.js";
+import { userRouter} from "./routes/user.router.js";
 
 
 
@@ -26,7 +31,10 @@ const cartManager = new CartManager ();
 //Middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(express.static("./src/public"))
+app.use(express.static("./src/public"));
+app.use(cookieParser());
+app.use(passport.initialize());
+initializePassport();
 
 
 //Configuracion Express Handlebars
@@ -38,6 +46,8 @@ app.set("views", "./src/views")
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartRouter);
 app.use("/", viewsRouter);
+app.use("/", viewUserRouter);
+app.use("/api/sessions", userRouter);
 
 
 
