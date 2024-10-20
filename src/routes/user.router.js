@@ -1,13 +1,28 @@
-import {Router} from "express";
 import {cartManager} from "../app.js";
 import UsuarioModel from "../dao/models/users.model.js";
 import CartModel from "../dao/models/cart.model.js";
 import jwt from "jsonwebtoken";
-import passport from "passport";
 import {createHash, isValidPassword} from "../utils/util.js"
+import {Router} from "express";
+import UserController from "../controllers/user.controller.js";
+import passport from "passport";
 
 const userRouter = Router();
+const userController = new UserController()
 
+userRouter.post("/register", async (req, res)=>{userController.register})
+
+userRouter.post("/login", async(req, res)=>{userController.login})
+
+userRouter.post("/logout", (req,res)=>{userController.logout})    
+
+userRouter.get("/current", passport.authenticate("current", {session: false}), (req,res)=>{userController.current})
+
+//userRouter.get("/admin", passport.authenticate("current", {session:false}) ,(req,res)=>
+
+
+
+/*
 //Ruta Registro
 userRouter.post("/register", async (req, res)=>{
     let {usuario, password, first_name, last_name, age, email} = req.body;
@@ -80,9 +95,12 @@ userRouter.post("/login", async(req, res)=>{
 
 })
 
+
+
 userRouter.get("/current", passport.authenticate("current", {session: false}), (req,res)=>{
     res.render("homeusers", {usuario: req.user.usuario})
 })
+
 
 //LOGOUT
 userRouter.post("/logout", (req,res)=>{
@@ -100,5 +118,6 @@ userRouter.get("/admin", passport.authenticate("current", {session:false}) ,(req
 
     res.render("admin")
 })
+*/
 
 export {userRouter};
