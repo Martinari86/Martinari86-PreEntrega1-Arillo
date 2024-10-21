@@ -14,12 +14,16 @@ class ProductDao{
             return await product.save()
         }
 
-        async update(id, productData){
-            return await ProductModel.findByIdAndUpdate(id, productData)
+        async update(id, {...productData}){
+            return await ProductModel.findByIdAndUpdate(id, {...productData})
         }
 
         async delete(id){
             return await ProductModel.findByIdAndDelete(id)
+        }
+
+        async paginate(obj, opt){
+            return await ProductModel.paginate(obj,opt)
         }
 }
 

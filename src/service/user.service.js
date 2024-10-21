@@ -4,8 +4,13 @@ import {createHash, isValidPassword} from "../utils/util.js"
 class UserService{
 
         async registerUser(userData){
-            const existingUser= await userRepository.getUserByUser(userData.usuario)
-            if(existingUser) throw new Error("El usuario ya existe")
+            //console.log("USER SERVICE: userData ",userData.email);
+            
+            const existingUser= await userRepository.getUserByEmail(userData.email);
+            //console.log("USER SERVICE: Existe Usuario ",existingUser);
+            if(existingUser) {
+                throw new Error("El usuario ya existe");
+            };
                   
             //Creo un carrito nuevo ... exportar SERVICE de CART y que lo cree
             //const nuevoCarrito = new CartModel();
@@ -14,10 +19,15 @@ class UserService{
             userData.password = createHash(userData.password);
             return await userRepository.createUser(userData)
         }
-
-        async loginUser(usuario, password){
-            const user = await userRepository.getUserByUser(usuario)
+        
+        async loginUser(email, password){
+            //console.log("USER SERVICE: email ",email);
+            //console.log("USER SERVICE: password ",password);
+            const user = await userRepository.getUserByEmail(email)
+           
             if(!user || !isValidPassword(password,user)){
+                //console.log("USER SERVICE: user ",user);
+                //console.log("USER SERVICE: user ",!isValidPassword(password,user));
                 throw new Error ("Credenciales No Validas")
             }
             return user 
@@ -34,7 +44,7 @@ class UserService{
         async deleteUser(id){
             return await userRepository.deleteUser(id)
         }
-
+    
 }
 
 export default new UserService()

@@ -1,12 +1,31 @@
 import {Router} from "express";
 import {productManager} from "../app.js";
+import ProductController from "../controllers/product.controller.js";
+const productController = new ProductController()
+
 
 const productsRouter = Router();
 
 //Lista de todos los productos en la ruta /products
+productsRouter.get("/", productController.getProducts)
+
+//Traer producto por ID
+productsRouter.get("/:pid", productController.getProductById)
+
+//Crear producto 
+productsRouter.post("/", productController.addProduct)
+
+//Metodo para Actualizar un producto en la lista
+productsRouter.put('/:pid', productController.updateProduct)
+
+//Metodo Delete para eliminar productos
+productsRouter.delete('/:pid', productController.deleteProduct)
+
+/*
+//Lista de todos los productos en la ruta /products
 productsRouter.get("/", async (req, res) => {
    
-    /*
+    
     try{
         const limit = req.query.limit; //{limit} = req.query
         const productos = await productManager.getProducts();
@@ -15,7 +34,7 @@ productsRouter.get("/", async (req, res) => {
                 return res.json(limitedProducts)
             }else{
                 res.send(productos);
-            }*/
+            }
     try{    
         const result = await productManager.getProducts(req.query);
         res.send({ 
@@ -99,7 +118,7 @@ productsRouter.delete('/:pid', async (req, res) => {
   }
 );
 
-
+*/
 
 
 export {productsRouter};

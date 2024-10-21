@@ -10,13 +10,13 @@ import passport from "passport";
 const userRouter = Router();
 const userController = new UserController()
 
-userRouter.post("/register", async (req, res)=>{userController.register})
+userRouter.post("/register", userController.register)
 
-userRouter.post("/login", async(req, res)=>{userController.login})
+userRouter.post("/login", userController.login)
 
-userRouter.post("/logout", (req,res)=>{userController.logout})    
+userRouter.post("/logout", userController.logout)    
 
-userRouter.get("/current", passport.authenticate("current", {session: false}), (req,res)=>{userController.current})
+userRouter.get("/current", passport.authenticate("current", {session: false}), userController.current)
 
 //userRouter.get("/admin", passport.authenticate("current", {session:false}) ,(req,res)=>
 

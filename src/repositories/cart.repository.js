@@ -1,25 +1,25 @@
-import CartDao from "../dao/cart.dao.js"
+import cartDao from "../dao/cart.dao.js"
 
 class CartRepository{
 
     async createCart(cartData){
-        return await CartDao.save(cartData)
+        return await cartDao.save(cartData)
     }
 
-    async getCartById(id){
-        return await CartDao.findById(id)
+    async saveCart(cartData){
+        return await cartDao.save(cartData)
     }
 
-    async createCart(cartData){
-        return await CartDao.save(cartData)
+    async getCartById(cid){
+        return await cartDao.findById(cid)
     }
 
-    async updateCart(id,cartData){
-        return await CartDao.update(id,cartData)
+    async updateCart(cid,cartData){
+        return await cartDao.update(cid,cartData)
     }
 
-    async deleteCart(id){
-        return await CartDao.delete(id)
+    async deleteCart(cid){
+        return await cartDao.delete(cid)
     }
 
 }

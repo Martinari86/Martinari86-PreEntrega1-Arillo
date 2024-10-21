@@ -6,16 +6,20 @@ class ProductRepository{
         return await ProductDao.save(productData)
     }
 
-    async getProductById(id){
+    async findById(id){
         return await ProductDao.findById(id)
     }
 
-    async updateProduct(id,userData){
-        return await ProductDao.update(id,productData)
+    async findByIdAndUpdate(id,{...productData}){
+        return await ProductDao.update(id,{...productData})
     }
 
-    async deleteProduct(id){
+    async findByIdAndDelete(id){
         return await ProductDao.delete(id)
+    }
+
+    async paginate(obj,ops){
+        return await ProductDao.paginate(obj, ops)
     }
 
 }

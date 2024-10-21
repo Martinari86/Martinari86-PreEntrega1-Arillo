@@ -1,10 +1,13 @@
 import {Router} from "express";
 import ProductModel from "../dao/models/product.model.js";
+import { soloAdmin, soloUser } from "../middleware/auth.js";
+import passport from "passport";
+
 
 const viewsRouter = Router();
 
 //Lista de todos los productos en la ruta /products
-viewsRouter.get("/products", async (req, res) => {
+viewsRouter.get("/products", passport.authenticate("current", {session: false}), soloUser, async (req, res) => {
         
         let page = req.query.page || 1;
         let limit = 3;
@@ -27,7 +30,7 @@ viewsRouter.get("/products", async (req, res) => {
     }
 )
 
-viewsRouter.get("/realtimeproducts", async (req, res) => { 
+viewsRouter.get("/realtimeproducts", passport.authenticate("current", {session: false}), soloAdmin, async (req, res) => { 
         res.render("realtimeproducts");    
     }
 )

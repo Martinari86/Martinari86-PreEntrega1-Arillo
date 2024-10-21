@@ -1,9 +1,23 @@
 import {Router} from "express";
 import {cartManager} from "../app.js";
+import CartController from "../controllers/cart.controller.js";
+const cartController = new CartController()
 
 const cartRouter = Router();
 
+// Crear Carrito
+cartRouter.post("/", cartController.addCart)
 
+// Listamos los productos de un determinado carrito:
+cartRouter.get("/:cid", cartController.getCartById)
+
+// Agregar productos al carrito
+cartRouter.post("/:cid/product/:pid", cartController.addProductsToCart)
+
+//Eliminar carrito - CHEQUEARLO
+cartRouter.delete("/:cid/product/:pid", cartController.deleteProductFromCart)
+
+/*
 // Crear Carrito
 
 cartRouter.post("/", async (req,res)=>{
@@ -60,5 +74,6 @@ cartRouter.delete("/:cid/product/:pid", async (req,res) => {
     }
 
 })
+*/
 
 export {cartRouter};

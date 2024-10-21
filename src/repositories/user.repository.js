@@ -3,6 +3,7 @@ import userDao from "../dao/user.dao.js"
 class UserRepository{
 
     async createUser(userData){
+        //console.log("USER REPOSITORY CreateUser: userData ", userData);
         return await userDao.save(userData)
     }
 
@@ -11,6 +12,7 @@ class UserRepository{
     }
 
     async getUserByEmail(email){
+        console.log("USER REPOSITORY: Email ", email);
         return await userDao.findOne({email})
     }
 

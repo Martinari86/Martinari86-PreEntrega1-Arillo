@@ -1,8 +1,8 @@
 import CartModel from "./models/cart.model.js";
 
 class CartDao{
-        async findById(id){
-            return await CartModel.findById(id)
+        async findById(cid){
+            return await CartModel.findById(cid)
         }
 
         async findOne(query){
@@ -14,13 +14,13 @@ class CartDao{
             return await cart.save()
         }
 
-        async update(id, cartData){
-            return await CartModel.findByIdAndUpdate(id, cartData)
+        async update(cid, cartData){
+            return await CartModel.findByIdAndUpdate(cid, cartData)
         }
 
         
-        async delete(id){
-            return await CartModel.findByIdAndDelete(id)
+        async delete(cid){
+            return await CartModel.findByIdAndDelete(cid)
         }
 
 }
