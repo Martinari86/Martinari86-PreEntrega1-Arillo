@@ -17,6 +17,9 @@ cartRouter.post("/:cid/product/:pid", cartController.addProductsToCart)
 //Eliminar carrito - CHEQUEARLO
 cartRouter.delete("/:cid/product/:pid", cartController.deleteProductFromCart)
 
+//Finalizar compra
+cartRouter.post("/:cid/purchase", cartController.finalizarCompra)
+
 /*
 // Crear Carrito
 

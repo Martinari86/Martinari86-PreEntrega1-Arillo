@@ -36,6 +36,7 @@ class ProductService{
     }
 
     async getProductById(id){
+            //console.log("product ID desde producto service", id);
             const productFound= await productRepository.findById(id);
             if(productFound){
                 return productFound

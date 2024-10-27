@@ -12,7 +12,7 @@ class UserRepository{
     }
 
     async getUserByEmail(email){
-        console.log("USER REPOSITORY: Email ", email);
+        //console.log("USER REPOSITORY: Email ", email);
         return await userDao.findOne({email})
     }
 

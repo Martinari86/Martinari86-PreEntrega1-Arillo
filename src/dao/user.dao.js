@@ -6,14 +6,14 @@ class UserDao{
         }
 
         async findOne(query){
-            console.log("USER DAO: Email ", query);
+            //console.log("USER DAO: Email ", query);
             return await UsuarioModel.findOne(query)
         }
 
         async save(userData){
-            console.log("USER DAO: userData ", userData);            
+            //console.log("USER DAO: userData ", userData);            
             const user = new UsuarioModel(userData);
-            console.log("USER DAO: user que va al MODEL ", user);
+            //console.log("USER DAO: user que va al MODEL ", user);
             return await user.save()
         }
 

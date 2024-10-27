@@ -1,18 +1,26 @@
+
 import userService from "../service/user.service.js";
 //import jwt from "passport-jwt"; 
 import jwt from "jsonwebtoken"; 
 import UserDTO from "../dto/user.dto.js";
+import CartModel from "../dao/models/cart.model.js";
+import CartController from "./cart.controller.js";
+import cartService from "../service/cart.service.js";
+import productService from "../service/product.service.js";
 
 class UserController{
 
     async register(req,res){
         
         const { first_name, last_name, age, email, usuario, password } = req.body;
-        
-        
-        try{
+          
+          try{
+            
+            const newCart = new CartModel({ products: [] });
+            await newCart.save();
+
             const newUser = await userService.registerUser({
-                first_name, last_name, age, email, usuario, password
+                first_name, last_name, age, email, usuario, password, cart: newCart.id
              }
             );            
             //console.log("USER CONTROLLER", newUser);
@@ -64,6 +72,8 @@ class UserController{
         res.redirect("/login")
     }
     
+    
+
 }
 
 export default UserController

@@ -1,5 +1,6 @@
 import userRepository from "../repositories/user.repository.js";
 import {createHash, isValidPassword} from "../utils/util.js"
+import CartModel from "../dao/models/cart.model.js";
 
 class UserService{
 
@@ -8,14 +9,17 @@ class UserService{
             
             const existingUser= await userRepository.getUserByEmail(userData.email);
             //console.log("USER SERVICE: Existe Usuario ",existingUser);
+            
+            //Creo un carrito nuevo
+            //const nuevoCarrito = CartController.addCart
+                const nuevoCarrito = new CartModel({products:[]});
+                await nuevoCarrito.save
+
             if(existingUser) {
                 throw new Error("El usuario ya existe");
             };
-                  
-            //Creo un carrito nuevo ... exportar SERVICE de CART y que lo cree
-            //const nuevoCarrito = new CartModel();
-            //await nuevoCarrito.save
-              
+
+            //userData.cart= nuevoCarrito._id;        
             userData.password = createHash(userData.password);
             return await userRepository.createUser(userData)
         }
