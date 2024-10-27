@@ -2,7 +2,7 @@ import cartService from "../service/cart.service.js";
 import productService from "../service/product.service.js";
 import UsuarioModel from "../dao/models/users.model.js";
 import TicketModel from "../dao/models/ticket.model.js";
-import {generarId, calcularTotal} from "../utils/util.js"
+import {generarId, calcularTotal, eliminarProductosNoDisponibles} from "../utils/util.js"
 import { ObjectId } from "mongodb"
 
 class CartController{
@@ -85,13 +85,6 @@ class CartController{
                         productosNoDisponibles.push(pid)
                     }
                 }
-                
-            
-            //console.log("Productos No Disponibles: ", productosNoDisponibles);
-            //console.log("Buscar usuario por carrito:", new ObjectId(cid))
-            //const userWithCart = await UsuarioModel.findOne({ cart: cid });
-            //console.log(userWitCart)
-
            
             const userWithCart = await UsuarioModel.findOne({ cart: cid });
                 if (userWithCart) {
@@ -100,19 +93,22 @@ class CartController{
                     console.log("No se encontró usuario con ese carrito.");
                 }
            
-            console.log(userWithCart.email);
-            //console.log(generarId());
+
             const ticket = new TicketModel({
                 code: generarId(),
                 purchase_datetime: new Date(),
-                amount: calcularTotal(cart.products),
+                amount: await calcularTotal(cart.products),
                 purchaser: userWithCart.email //userWithCart.email // aca poner el mail del usuario
             })
            
             await ticket.save();
 
-        
-            
+            //Nuevo Carrito solo con los productos disponibles
+            //console.log("productos No Disponibles", productosNoDisponibles)
+            //console.log(cart.products)
+            //cart.products = eliminarProductosNoDisponibles(cart.products,productosNoDisponibles)
+            //console.log(cart.products)
+               
         /*res.render("checkout",{
                 cliente: userWithCart.first_name,
                 email: userWithCart.email,

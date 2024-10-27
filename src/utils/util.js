@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import { v4 as uuidv4 } from 'uuid';
+import ProductModel from "../dao/models/product.model.js";
 
 
 
@@ -16,7 +17,7 @@ const generarId = () => {
 
 
 //Calcular total de compra
-
+/*
 const calcularTotal = (products) => {
     let total=0;
     console.log(products)
@@ -26,10 +27,33 @@ const calcularTotal = (products) => {
         total += item.product.price * item.quantity
     })
     return total
+}*/
+
+const calcularTotal = async (products) => {
+    let total = 0;
+    
+    // Pobla los productos para obtener los detalles completos
+    for (let item of products) {
+        const productoCompleto = await ProductModel.findById(item.product); 
+        if (productoCompleto) {
+            //console.log(productoCompleto.price);
+            //console.log(item.quantity);
+            total += productoCompleto.price * item.quantity;
+        }
+    }
+    //console.log(total);
+    return total;
 }
 
 
+const eliminarProductosNoDisponibles = (cart, productosNoDisponibles) => {
+    console.log(cart);
+    console.log(productosNoDisponibles);
+    
+    return cart.products.filter(item => 
+        !productosNoDisponibles.some(producto => producto.toString() === item.product.toString()))
+    
+}
 
-
-export {createHash, isValidPassword, generarId, calcularTotal};
+export {createHash, isValidPassword, generarId, calcularTotal, eliminarProductosNoDisponibles};
 
