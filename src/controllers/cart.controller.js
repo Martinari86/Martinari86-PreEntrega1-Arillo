@@ -104,10 +104,9 @@ class CartController{
             await ticket.save();
 
             //Nuevo Carrito solo con los productos disponibles
-            //console.log("productos No Disponibles", productosNoDisponibles)
-            //console.log(cart.products)
-            //cart.products = eliminarProductosNoDisponibles(cart.products,productosNoDisponibles)
-            //console.log(cart.products)
+            console.log("productos No Disponibles", productosNoDisponibles)
+            console.log(cart.products)
+            cart.products= eliminarProductosNoDisponibles(cart.products, productosNoDisponibles)
                
         /*res.render("checkout",{
                 cliente: userWithCart.first_name,
@@ -120,7 +119,8 @@ class CartController{
                 cliente: userWithCart.first_name,
                 email: userWithCart.email,
                 numTicket: ticket.code,
-                noDisponible: productosNoDisponibles
+                noDisponible: productosNoDisponibles,
+                cartFinal: cart.products
         });
 
         }catch(error){

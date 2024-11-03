@@ -47,12 +47,9 @@ const calcularTotal = async (products) => {
 
 
 const eliminarProductosNoDisponibles = (cart, productosNoDisponibles) => {
-    console.log(cart);
-    console.log(productosNoDisponibles);
-    
-    return cart.products.filter(item => 
-        !productosNoDisponibles.some(producto => producto.toString() === item.product.toString()))
-    
+    return cart.filter(item => 
+        !productosNoDisponibles.includes(item.product.toString())
+    )
 }
 
 export {createHash, isValidPassword, generarId, calcularTotal, eliminarProductosNoDisponibles};
