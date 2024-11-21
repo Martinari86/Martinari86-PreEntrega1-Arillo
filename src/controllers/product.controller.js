@@ -6,6 +6,7 @@ class ProductController{
         
         try{    
             const result = await productService.getProducts(req.query);
+            console.log(req.query);
             res.send({ 
                 result: "success", 
                 payload: result.docs,

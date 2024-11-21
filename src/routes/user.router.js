@@ -1,4 +1,4 @@
-import {cartManager} from "../app.js";
+//import {cartManager} from "../app.js";
 import UsuarioModel from "../dao/models/users.model.js";
 import CartModel from "../dao/models/cart.model.js";
 import jwt from "jsonwebtoken";

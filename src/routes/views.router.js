@@ -10,7 +10,7 @@ const viewsRouter = Router();
 viewsRouter.get("/products", passport.authenticate("current", {session: false}), soloUser, async (req, res) => {
         
         let page = req.query.page || 1;
-        let limit = 3;
+        let limit = req.query.limit || 5;
         
         const productosLista = await ProductModel.paginate({}, {limit, page});
         const productosListaFinal = productosLista.docs.map(elemento =>{

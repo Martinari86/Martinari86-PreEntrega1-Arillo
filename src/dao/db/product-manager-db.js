@@ -88,6 +88,6 @@ class ProductManager {
      }
 }
 
-export {ProductManager}
+//export {ProductManager}
 
 

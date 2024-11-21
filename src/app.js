@@ -2,8 +2,8 @@
 import express from "express"; //OTRA FORMA DE IMPORTAR EXPRESS
 import {engine} from "express-handlebars";
 
-import {ProductManager} from "./dao/db/product-manager-db.js";
-import {CartManager} from "./dao/db/cart-manager-db.js";
+//import {ProductManager} from "./dao/db/product-manager-db.js";
+//import {CartManager} from "./dao/db/cart-manager-db.js";
 
 import {productsRouter} from "./routes/productos.router.js";
 import {cartRouter} from "./routes/cart.router.js";
@@ -25,8 +25,8 @@ const app = express();
 const PUERTO = 8080;
 
 //Instancio mis manager para usar sus metodos
-const productManager = new ProductManager ();
-const cartManager = new CartManager ();
+//const productManager = new ProductManager ();
+//const cartManager = new CartManager ();
 
 //Middleware
 app.use(express.json());
@@ -56,6 +56,7 @@ const httpServer = app.listen(PUERTO, () => {
     console.log(`Servidor escuchando en http://localhost:${PUERTO}`);
   });
 
+/*
 //Instancio el Socket Server y por convencion la guardo en la contante io
 const io = new Server(httpServer);
   
@@ -85,21 +86,7 @@ io.on("connection", async (socket) =>{
   });
   
 })
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export {productManager}
-export {cartManager} 
+*/
+ 
+//export {productManager}
+//export {cartManager} 
